@@ -8,11 +8,7 @@ WORKDIR /app
 
 
 # Copy the project files
-COPY pom.xml /app
 COPY src /app/src
-
-# Copy the serenity.conf file
-COPY /src/test/resources/serenity.conf /app/serenity.conf
 
 # Download dependencies
 RUN mvn dependency:resolve
