@@ -4,11 +4,11 @@ FROM maven:3.8.4-openjdk-11
 
 
 # Set up the working directory
-WORKDIR /app
+WORKDIR /workspace/output/
 
 
 # Copy the project files
-COPY src /app/src
+COPY src /workspace/output/src
 
 # Download dependencies
 RUN mvn dependency:resolve
