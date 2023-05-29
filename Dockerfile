@@ -2,7 +2,7 @@
 FROM maven:3.6.3-openjdk-8-slim AS build
 
 # Set the working directory in the container
-WORKDIR .
+WORKDIR /app
 
 # Copy the project's pom.xml to the container
 COPY pom.xml .
@@ -20,10 +20,10 @@ RUN mvn package
 FROM openjdk:8-jre-slim
 
 # Set the working directory in the container
-WORKDIR .
+WORKDIR /app
 
 # Copy the built artifact from the previous stage
-COPY --from=build /target/mavenAvantageSerenityIntellij-1.0-SNAPSHOT.jar .
+COPY --from=build /app/target/mavenAvantageSerenityIntellij-1.0-SNAPSHOT.jar .
 
 # Expose any necessary ports
 EXPOSE 8080
