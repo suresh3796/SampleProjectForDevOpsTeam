@@ -1,17 +1,10 @@
-# Use a Maven and Java base image
-FROM maven:3.8.4-openjdk-11
-
-
-
-# Set up the working directory
-WORKDIR /workspace/output/
-
-
-# Copy the project files
-COPY src /workspace/output/src
-
-# Download dependencies
-RUN mvn dependency:resolve
-
-# Build and run tests
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ARG JAVA_OPTS
+ENV JAVA_OPTS=$JAVA_OPTS
+COPY target/mavenAvantageSerenityIntellij-1.0-SNAPSHOT.jar sampleprojectfordevopsteam.jar
+EXPOSE 3000
+ENTRYPOINT exec java $JAVA_OPTS -jar sampleprojectfordevopsteam.jar
+# For Spring-Boot project, use the entrypoint below to reduce Tomcat startup time.
+#ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar sampleprojectfordevopsteam.jar
 CMD ["mvn", "clean", "verify"]
